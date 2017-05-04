@@ -50,6 +50,14 @@ mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.TopTweet -Dexec.
 docker-compose up -d 
 ```
 
+## Tweets Stream to Kafka Topic *(Docker/Python)*
+
+```
+cd data-loading/tweets-kafka
+docker run -v "`pwd`/src:/src" --rm -it --add-host kafka:172.17.0.1 --name tweets-kafka beam-python
+```
+
+
 ### Run TopTweet Pipeline with Kafka Topic *(unbounded)*
 
 - *direct-runner*
