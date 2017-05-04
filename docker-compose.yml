@@ -1,0 +1,15 @@
+zookeeper:
+  image: wurstmeister/zookeeper
+  ports:
+    - "2181:2181"
+kafka:
+  hostname: kafka
+  image: wurstmeister/kafka:0.9.0.1
+  ports:
+    - "9092:9092"
+  links:
+    - zookeeper:zk
+  environment:
+    KAFKA_ADVERTISED_HOST_NAME: kafka
+    KAFKA_ADVERTISED_PORT: 9092
+    KAFKA_CREATE_TOPICS: "tweets-topic:1:1,result:1:1"
