@@ -178,7 +178,7 @@ public class KafkaTopTweet {
                         .withKeyCoder(BigEndianLongCoder.of())
                         .withValueCoder(StringUtf8Coder.of())
                         .values();
-        
+
         Pipeline p = Pipeline.create(options);
 
         // Apache Beam reading from Kafka gives CoderException: java.io.EOFException : http://stackoverflow.com/questions/43209743/apache-beam-reading-from-kafka-gives-coderexception-java-io-eofexception/43233399
