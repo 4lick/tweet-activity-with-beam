@@ -31,6 +31,20 @@ mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.CountTweet -Dexe
 mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.CountTweet -Dexec.args="--input=/tmp/tweets.json" -Pflink-runner
 ```
 
+### Run TopTweet Pipeline 
+
+- *direct-runner*
+
+```
+mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.TopTweet -Dexec.args="--input=/tmp/tweets.json" -Pdirect-runner
+```
+
+- *Flink local*
+
+```
+mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.TopTweet -Dexec.args="--input=/tmp/tweets.json" -Pflink-runner
+```
+
 
 
 
