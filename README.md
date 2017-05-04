@@ -17,7 +17,7 @@ docker run -v "`pwd`/src:/src" --rm -it --name tweets-file beam-python
 - Generate tweets.json in $PWD/src 
 - move $PWD/src/tweets.json to /tmp
 
-### Run CountTweet Pipeline 
+### Run CountTweet Pipeline *(bounded)*
 
 - *direct-runner*
 
@@ -31,7 +31,7 @@ mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.CountTweet -Dexe
 mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.CountTweet -Dexec.args="--input=/tmp/tweets.json" -Pflink-runner
 ```
 
-### Run TopTweet Pipeline 
+### Run TopTweet Pipeline *(bounded)*
 
 - *direct-runner*
 
@@ -45,6 +45,24 @@ mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.TopTweet -Dexec.
 mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.TopTweet -Dexec.args="--input=/tmp/tweets.json" -Pflink-runner
 ```
 
+## Start Kafka cluster:
+```
+docker-compose up -d 
+```
+
+### Run TopTweet Pipeline with Kafka Topic *(unbounded)*
+
+- *direct-runner*
+
+```
+mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.KafkaTopTweet -Pdirect-runner
+```
+
+- *Flink local*
+
+```
+mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.KafkaTopTweet -Pflink-runner
+```
 
 
 
