@@ -1,6 +1,3 @@
-Description
-============================================
-
 #  Activity on Twitter with Apache Beam
 
 - Prerequirement: 
