@@ -4,7 +4,6 @@ import org.apache.beam.sdk.Pipeline;
 //import org.apache.beam.sdk.coders.StringUtf8Coder;
 
 import org.apache.beam.sdk.coders.BigEndianLongCoder;
-import org.apache.beam.sdk.coders.SerializableCoder;
 import org.apache.beam.sdk.coders.StringUtf8Coder;
 import org.apache.beam.sdk.options.Default;
 import org.apache.beam.sdk.options.Description;
@@ -21,8 +20,6 @@ import org.apache.beam.sdk.values.PCollection;
 import org.apache.beam.sdk.values.PDone;
 //import org.apache.beam.sdks.java.core.repackaged.com.google.common.collect.ImmutableMap;
 import org.apache.commons.lang3.StringEscapeUtils;
-import org.apache.kafka.common.serialization.LongSerializer;
-import org.apache.kafka.common.serialization.StringSerializer;
 import org.joda.time.Duration;
 import org.joda.time.Instant;
 import org.json.JSONException;
@@ -100,7 +97,7 @@ public class KafkaTopTweet {
         }
     }
 
-    static class SplitMentionHash extends DoFn<KV<String, Long>, KV<String, KV<String, Long>>> {
+    static class mentionHashTagSpliting extends DoFn<KV<String, Long>, KV<String, KV<String, Long>>> {
         @ProcessElement
         public void processElement(ProcessContext c) {
             if (c.element().getKey().startsWith("@"))
@@ -195,7 +192,7 @@ public class KafkaTopTweet {
                                 .plusDelayOf(Duration.standardMinutes(1))).withAllowedLateness(Duration.ZERO)
                         .discardingFiredPanes())
                 .apply("Count", Count.<String>perElement())
-                .apply("Split Mention / Hash", ParDo.of(new SplitMentionHash()))
+                .apply("Split Mention / Hash", ParDo.of(new mentionHashTagSpliting()))
                 .apply("Top 3", Top.<String, KV<String, Long>, KV.OrderByValue<String, Long>>perKey(3, new KV.OrderByValue<String, Long>()))
                 .apply(ParDo.of(new TransformForPrint()))
                 .apply(kafkaSink);
