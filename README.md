@@ -22,7 +22,7 @@ docker run -v "`pwd`/src:/src" --rm -it --name tweets-file beam-python
 - *direct-runner*
 
 ```
-mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.CountTweet -Dexec.args="--input=/tmp/tweets.json" -Pdirect-runner
+mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.CountTweet -Dexec.args="--input=/tmp/tweets.json --output=/tmp/lead/tweets.csv" -Pdirect-runner
 ```
 
 - *Flink local*
@@ -36,13 +36,13 @@ mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.CountTweet -Dexe
 - *direct-runner*
 
 ```
-mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.TopTweet -Dexec.args="--input=/tmp/tweets.json" -Pdirect-runner
+mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.TopTweet -Dexec.args="--input=/tmp/tweets.json --output=/tmp/tweets/leadboard" -Pdirect-runner
 ```
 
 - *Flink local*
 
 ```
-mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.TopTweet -Dexec.args="--input=/tmp/tweets.json" -Pflink-runner
+mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.TopTweet -Dexec.args="--input=/tmp/tweets.json --runner=FlinkRunner --output=/tmp/tweets/leadboard" -Pflink-runner
 ```
 
 ## Start Kafka cluster:
@@ -69,7 +69,7 @@ mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.KafkaTopTweet -P
 - *Flink local*
 
 ```
-mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.KafkaTopTweet -Pflink-runner
+mvn clean compile exec:java -Dexec.mainClass=fr.ippon.beam.demo.KafkaTopTweet  -Pflink-runner
 ```
 
 ## TODO : Complete ELK Stack fork: https://github.com/deviantony/docker-elk
